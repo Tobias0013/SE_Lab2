@@ -8,8 +8,8 @@
         <option name="gradleJvm" value="#GRADLE_LOCAL_JAVA_HOME" />
         <option name="modules">
           <set>
-            <option value="$PROJECT_DIR$" />
-            <option value="$PROJECT_DIR$/app" />
+            <option value="$PROJECT_DIR$/../../../OneDrive-HögskolanKristianstad/SoftwareEngineering/SE_Lab2" />
+            <option value="$PROJECT_DIR$/../../../OneDrive-HögskolanKristianstad/SoftwareEngineering/SE_Lab2/app" />
           </set>
         </option>
         <option name="resolveExternalAnnotations" value="false" />
