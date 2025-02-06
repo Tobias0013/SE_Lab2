@@ -1,5 +1,6 @@
 package com.example.se_lab1
 
+import android.content.Context
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.DoorFront
 import androidx.compose.material.icons.filled.Lightbulb
@@ -13,6 +14,7 @@ import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.se_lab1.data.Database
+import com.example.se_lab1.data.SpeechToText
 import kotlinx.coroutines.launch
 
 data class SmartState(
@@ -22,14 +24,34 @@ data class SmartState(
     var checked: Boolean
 )
 
+data class SmartItem(
+    var state: MutableState<SmartState>,
+    var name: String,
+    var action: () -> Unit
+)
+
 class ViewModel: ViewModel() {
-    val database = Database()
+    lateinit var speechToText: SpeechToText
     var lampState: MutableState<SmartState> = mutableStateOf(SmartState("", Color.Gray, Icons.Default.Lightbulb, false)); private set
     var doorState: MutableState<SmartState> = mutableStateOf(SmartState("", Color.Gray, Icons.Default.DoorFront, false)); private set
     var windowState: MutableState<SmartState> = mutableStateOf(SmartState("", Color.Gray, Icons.Default.Window, false)); private set
 
-    init {
+    var smartItems: List<SmartItem> = listOf(
+        SmartItem(lampState, "Lamp", { changeLampValue() }),
+        SmartItem(doorState, "Door", { changeDoorValue() }),
+        SmartItem(windowState, "Window", { changeWindowValue() })
+    )
+    val database = Database(smartItems)
+
+    fun initializeViewModel(context: Context){
         getInit()
+        speechToText = SpeechToText(context, smartItems)
+
+        ::speechToText.isInitialized
+    }
+
+    fun isInitialized(): Boolean {
+        return this::speechToText.isInitialized
     }
     
     fun changeLampValue(){

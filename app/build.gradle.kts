@@ -63,6 +63,10 @@ dependencies {
     // Extended Icons
     implementation("androidx.compose.material:material-icons-extended:1.5.0")
 
+    // For gemini
+    implementation("com.squareup.okhttp3:okhttp:4.9.3") // For HTTP requests
+    implementation("com.google.code.gson:gson:2.8.9")   // For JSON parsing
+
     implementation(libs.androidx.core.ktx)
     implementation(libs.androidx.lifecycle.runtime.ktx)
     implementation(libs.androidx.activity.compose)

@@ -1,0 +1,30 @@
+{
+  "project_info": {
+    "project_number": "103368958438",
+    "firebase_url": "https://selab2-2f91d-default-rtdb.europe-west1.firebasedatabase.app",
+    "project_id": "selab2-2f91d",
+    "storage_bucket": "selab2-2f91d.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:103368958438:android:2427776f31d21438b2f627",
+        "android_client_info": {
+          "package_name": "com.example.se_lab1"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCCw9lnI_cmvgzST1_6evr-Gpfpy04bLCc"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
