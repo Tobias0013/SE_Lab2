@@ -2,13 +2,18 @@ package com.example.se_lab1
 
 import android.content.Context
 import android.os.Bundle
+import android.util.Log
 import android.widget.Toast
 import androidx.activity.ComponentActivity
+import androidx.activity.compose.rememberLauncherForActivityResult
 import androidx.activity.compose.setContent
+import androidx.activity.result.contract.ActivityResultContracts
+import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.material3.Button
@@ -21,7 +26,11 @@ import androidx.compose.material3.Text
 import androidx.compose.material3.TopAppBar
 import androidx.compose.material3.TopAppBarDefaults
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
 import androidx.compose.runtime.rememberCoroutineScope
+import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
@@ -46,6 +55,7 @@ import okhttp3.RequestBody
 import com.google.gson.Gson
 import kotlinx.coroutines.CoroutineScope
 import kotlin.math.log
+import android.Manifest
 
 class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -107,9 +117,20 @@ fun Main(viewModel: ViewModel){
 
 @Composable
 fun SpeechInput(viewModel: ViewModel){
+    val context = LocalContext.current
+    val permissionLauncher = rememberLauncherForActivityResult(
+        contract = ActivityResultContracts.RequestPermission()
+    ) { isGranted ->
+        if (isGranted) {
+            viewModel.speechToText.startListening()
+        } else {
+            Toast.makeText(context, "Microphone permission denied, speech to text will not work", Toast.LENGTH_SHORT).show()
+        }
+    }
+
     Button(
         onClick = {
-            viewModel.speechToText.startListening()
+            permissionLauncher.launch(Manifest.permission.RECORD_AUDIO)
         },
         modifier = Modifier.padding(0.dp, 50.dp, 0.dp, 0.dp)
     ) {
